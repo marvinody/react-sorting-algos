@@ -31,3 +31,14 @@
     transform: rotate(360deg);
   }
 }
+
+#root, .App, .container {
+  height:100%;
+}
+.App {
+  display:flex;
+  justify-content: center;
+}
+.container {
+  width: 70%;
+}

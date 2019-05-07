@@ -1,0 +1,11 @@
+#data-holder{
+  display:flex;
+  height:400px;
+  align-items:flex-end;
+}
+.data{
+  flex: 1;
+  background-color:black;
+  display:flex;
+  flex-direction:column;
+}

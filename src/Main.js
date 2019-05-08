@@ -1,13 +1,13 @@
 import React from 'react';
 import Controls from './Controls';
 import DataHolder from './DataHolder';
-// import insertion_sort from './sorts/insertion';
+import insertion_sort from './sorts/insertion';
 import radix_sort from './sorts/radix';
 const TIMEOUT = 30;
 const ARRAY_SIZE = 100;
 const newRandArray = len => {
-  const arr = new Int8Array(len);
-  return arr.map(() => Math.random() * 100 | 0);
+  const arr = Array.from(new Int8Array(len));
+  return arr.map(() => Math.random() * 10000 | 0);
 }
 
 export default class Main extends React.Component {
@@ -16,12 +16,25 @@ export default class Main extends React.Component {
     this.state = {
       values: newRandArray(ARRAY_SIZE),
       isSorting: false,
+      sorts: [
+        { name: 'Insertion Sort', sort: insertion_sort },
+        { name: 'Radix Sort', sort: radix_sort }
+      ],
+      sort: 1,
     }
     this.start = this.start.bind(this);
+    this.reset = this.reset.bind(this);
+    this.changeSort = this.changeSort.bind(this)
+
     this.swap = this.swap.bind(this)
     this.set = this.set.bind(this);
     this.get = this.get.bind(this);
 
+  }
+  changeSort(idx) {
+    this.setState({
+      sort: idx,
+    })
   }
   reset() {
     this.setState({
@@ -60,7 +73,9 @@ export default class Main extends React.Component {
   }
   async sort() {
     const arr = this.state.values;
-    const newSorter = radix_sort(arr, {
+
+    const sortAlgo = this.state.sorts[this.state.sort]
+    const newSorter = sortAlgo.sort(arr, {
       swap: this.swap,
       set: this.set,
       get: this.get,
@@ -87,7 +102,7 @@ export default class Main extends React.Component {
     return (
       <div className='container'>
         <DataHolder values={this.state.values} />
-        <Controls start={this.start} randomize={this.reset} />
+        <Controls start={this.start} reset={this.reset} sorts={this.state.sorts} sort={this.state.sort} changeSort={this.changeSort} />
       </div>
     )
   }

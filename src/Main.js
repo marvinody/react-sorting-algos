@@ -1,24 +1,52 @@
 import React from 'react';
 import Controls from './Controls';
 import DataHolder from './DataHolder';
-
+// import insertion_sort from './sorts/insertion';
+import radix_sort from './sorts/radix';
 const TIMEOUT = 30;
-
+const ARRAY_SIZE = 100;
 const newRandArray = len => {
-  const arr = new Float32Array(len);
-  return arr.map(() => Math.random());
+  const arr = new Int8Array(len);
+  return arr.map(() => Math.random() * 100 | 0);
 }
 
 export default class Main extends React.Component {
   constructor() {
     super();
     this.state = {
-      values: newRandArray(100),
+      values: newRandArray(ARRAY_SIZE),
+      isSorting: false,
     }
     this.start = this.start.bind(this);
+    this.swap = this.swap.bind(this)
+    this.set = this.set.bind(this);
+    this.get = this.get.bind(this);
+
+  }
+  reset() {
+    this.setState({
+      values: newRandArray(ARRAY_SIZE),
+    })
   }
   async start() {
+    if (this.state.isSorting) {
+      return;
+    }
+    this.setState({
+      isSorting: true,
+    })
     await this.sort();
+  }
+  get() {
+    return this.state.values;
+  }
+  set(idx, val) {
+    const arr = Array.from(this.state.values);
+    const newArr = arr.slice(0, idx).concat(val, arr.slice(idx + 1));
+    this.setState({
+      values: newArr,
+    })
+    return newArr;
   }
   swap(idxA, idxB) {
     const arr = this.state.values.slice();
@@ -28,13 +56,22 @@ export default class Main extends React.Component {
     this.setState({
       values: arr,
     })
+    return arr;
   }
   async sort() {
-    const newSorter = this.insertion_sort();
+    const arr = this.state.values;
+    const newSorter = radix_sort(arr, {
+      swap: this.swap,
+      set: this.set,
+      get: this.get,
+    });
     while (!this.isSorted()) {
       newSorter.next();
       await resolveInSomeTime();
     }
+    this.setState({
+      isSorting: false,
+    })
   }
   isSorted() {
     const arr = this.state.values;
@@ -45,31 +82,12 @@ export default class Main extends React.Component {
     }
     return true;
   }
-  *insertion_sort() {
-    let i = 1;
-    let arr = this.state.values;
-    const swap = (idxA, idxB) => {
-      let a = arr[idxA];
-      arr[idxA] = arr[idxB];
-      arr[idxB] = a;
-    }
-    while (i < arr.length) {
-      let j = i;
-      while (j > 0 && arr[j - 1] > arr[j]) {
-        this.swap(j, j - 1);
-        yield
-        swap(j, j - 1);
-        j = j - 1;
-      }
-      i = i + 1;
-    }
 
-  }
   render() {
     return (
       <div className='container'>
         <DataHolder values={this.state.values} />
-        <Controls start={this.start} />
+        <Controls start={this.start} randomize={this.reset} />
       </div>
     )
   }

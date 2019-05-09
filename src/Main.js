@@ -1,9 +1,10 @@
 import React from 'react';
 import Controls from './Controls';
 import DataHolder from './DataHolder';
+import bubble_sort from './sorts/bubble';
 import insertion_sort from './sorts/insertion';
 import radix_sort from './sorts/radix';
-const TIMEOUT = 30;
+const TIMEOUT = 10;
 const ARRAY_SIZE = 100;
 const newRandArray = len => {
   const arr = Array.from(new Int8Array(len));
@@ -18,7 +19,8 @@ export default class Main extends React.Component {
       isSorting: false,
       sorts: [
         { name: 'Insertion Sort', sort: insertion_sort },
-        { name: 'Radix Sort', sort: radix_sort }
+        { name: 'Radix Sort', sort: radix_sort },
+        { name: 'Bubble Sort', sort: bubble_sort },
       ],
       sort: 1,
     }

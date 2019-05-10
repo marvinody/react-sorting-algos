@@ -3,12 +3,13 @@ import Controls from './Controls';
 import DataHolder from './DataHolder';
 import bubble_sort from './sorts/bubble';
 import insertion_sort from './sorts/insertion';
+import merge_sort from './sorts/merge';
 import radix_sort from './sorts/radix';
 const TIMEOUT = 10;
 const ARRAY_SIZE = 100;
 const newRandArray = len => {
   const arr = Array.from(new Int8Array(len));
-  return arr.map(() => Math.random() * 10000 | 0);
+  return arr.map(() => Math.random() * (ARRAY_SIZE * 10) | 0);
 }
 
 export default class Main extends React.Component {
@@ -21,6 +22,7 @@ export default class Main extends React.Component {
         { name: 'Insertion Sort', sort: insertion_sort },
         { name: 'Radix Sort', sort: radix_sort },
         { name: 'Bubble Sort', sort: bubble_sort },
+        { name: 'Merge Sort', sort: merge_sort },
       ],
       sort: 1,
     }
@@ -41,16 +43,18 @@ export default class Main extends React.Component {
   reset() {
     this.setState({
       values: newRandArray(ARRAY_SIZE),
+      isSorting: false,
     })
   }
-  async start() {
+  start() {
     if (this.state.isSorting) {
       return;
     }
     this.setState({
       isSorting: true,
+    }, async () => {
+      await this.sort();
     })
-    await this.sort();
   }
   get() {
     return this.state.values;
@@ -82,7 +86,7 @@ export default class Main extends React.Component {
       set: this.set,
       get: this.get,
     });
-    while (!this.isSorted()) {
+    while (!this.isSorted() && this.state.isSorting) {
       newSorter.next();
       await resolveInSomeTime();
     }

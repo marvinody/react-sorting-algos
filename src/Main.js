@@ -1,7 +1,8 @@
 import React from 'react';
 import Controls from './Controls';
 import DataHolder from './DataHolder';
-import bubble_sort from './sorts/bubble';
+import SortInfo from './SortInfo';
+import bubble_sort, { data as bubble_data } from './sorts/bubble';
 import insertion_sort from './sorts/insertion';
 import merge_sort from './sorts/merge';
 import radix_sort from './sorts/radix';
@@ -21,10 +22,10 @@ export default class Main extends React.Component {
       sorts: [
         { name: 'Insertion Sort', sort: insertion_sort },
         { name: 'Radix Sort', sort: radix_sort },
-        { name: 'Bubble Sort', sort: bubble_sort },
+        { name: 'Bubble Sort', sort: bubble_sort, data: bubble_data },
         { name: 'Merge Sort', sort: merge_sort },
       ],
-      sort: 1,
+      sort: 2,
     }
     this.start = this.start.bind(this);
     this.reset = this.reset.bind(this);
@@ -105,10 +106,12 @@ export default class Main extends React.Component {
   }
 
   render() {
+    const sort = this.state.sorts[this.state.sort]
     return (
       <div className='container'>
         <DataHolder values={this.state.values} />
         <Controls start={this.start} reset={this.reset} sorts={this.state.sorts} sort={this.state.sort} changeSort={this.changeSort} />
+        <SortInfo {...sort} />
       </div>
     )
   }

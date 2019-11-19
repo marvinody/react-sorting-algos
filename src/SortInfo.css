@@ -1,0 +1,38 @@
+.sort-info {}
+
+.sort-title {
+  font-size: 2rem;
+}
+
+.sort-complexities {
+  display: flex;
+  flex-direction: column;
+}
+
+.sort-complexities-header,
+.sort-complexities-row {
+  width: 100%;
+  padding: 0 10px;
+  justify-content: space-around;
+  display: flex;
+}
+
+.sort-complexities-header {
+  text-decoration: underline;
+}
+
+.sort-complexities-row .best::before {
+  content: 'Ω('
+}
+
+.sort-complexities-row .average::before {
+  content: 'Θ('
+}
+
+.sort-complexities-row .worst::before {
+  content: 'O('
+}
+
+.sort-complexities-row span::after {
+  content: ')'
+}

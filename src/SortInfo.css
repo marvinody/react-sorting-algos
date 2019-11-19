@@ -6,7 +6,8 @@
 
 .sort-complexities {
   display: flex;
-  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
 .sort-complexities-header,
@@ -35,4 +36,45 @@
 
 .sort-complexities-row span::after {
   content: ')'
+}
+
+.sort-complexities-table {
+  display: flex;
+  flex-direction: column;
+}
+
+.bad,
+.great,
+.good,
+.ok,
+.meh {
+  border-radius: 5px;
+  padding: 3px;
+  margin: 5px;
+  color: #222;
+}
+
+.bad {
+  border: 1px solid #b00;
+  background-color: #f99;
+}
+
+.meh {
+  border: 1px solid #b00;
+  background-color: #FC4;
+}
+
+.ok {
+  background-color: #ff0;
+  border: 1px solid #6f6e00;
+}
+
+
+.good {
+  border: 1px solid #286500;
+  background-color: #C8EA00;
+}
+
+.great {
+  background-color: green
 }

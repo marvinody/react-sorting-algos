@@ -14,6 +14,7 @@ function* bubble_sort(arr, { swap }) {
 }
 
 const name = 'Bubble Sort'
+const slug = 'bubble-sort'
 
 const complexities = {
   best: 'n',
@@ -27,6 +28,7 @@ const desc = `A simple sorting algorithm that repeatedly steps through the list,
 
 export const data = {
   name,
+  slug,
   link,
   desc,
   complexities,

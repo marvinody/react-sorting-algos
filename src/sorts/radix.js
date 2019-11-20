@@ -41,3 +41,7 @@ function* radix_sort(arr, { set, get }) {
 
 
 export default radix_sort;
+
+export const data = {
+  slug: 'radix-sort'
+}

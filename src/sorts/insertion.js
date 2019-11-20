@@ -13,3 +13,7 @@ function* insertion_sort(arr, { swap }) {
 }
 
 export default insertion_sort
+
+export const data = {
+  slug: 'insertion-sort'
+}

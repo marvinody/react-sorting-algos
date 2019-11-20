@@ -52,3 +52,6 @@ function* TopDownMerge(A, iBegin, iMiddle, iEnd, B, set) {
 
 
 export default merge_sort;
+export const data = {
+  slug: 'merge-sort'
+}

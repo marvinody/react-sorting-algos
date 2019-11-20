@@ -23,7 +23,7 @@ const complexityClasses = {
   '1': 'great',
   'log(n)': 'good',
   'n': 'ok',
-  'n*log(n)': 'meh',
+  'n log(n)': 'meh',
   'n^2': 'bad',
 }
 

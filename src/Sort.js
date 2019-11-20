@@ -18,7 +18,8 @@ export default withRouter(class Sort extends React.Component {
     console.log(props)
     this.state = {}
     this.start = this.start.bind(this);
-    this.reset = this.reset.bind(this);
+    this.randomize = this.randomize.bind(this);
+    this.unsort = this.unsort.bind(this)
 
     this.swap = this.swap.bind(this)
     this.set = this.set.bind(this);
@@ -36,6 +37,9 @@ export default withRouter(class Sort extends React.Component {
   componentDidMount() {
     this.resetToStart(this.props)
   }
+
+  // not the best way of doing this, but it seems to be ok
+  // the conditional prevents extra updates!
   shouldComponentUpdate(nextProps, nextState) {
     if (this.props.match.params.slug !== nextProps.match.params.slug) {
       this.resetToStart(nextProps)
@@ -43,12 +47,20 @@ export default withRouter(class Sort extends React.Component {
     return true;
   }
 
-  reset() {
+  randomize() {
     this.setState({
       values: newRandArray(ARRAY_SIZE),
       isSorting: false,
     })
   }
+
+  unsort() {
+    this.setState({
+      values: newRandArray(ARRAY_SIZE).sort((a, b) => b - a),
+      isSorting: false,
+    })
+  }
+
   start() {
     if (this.state.isSorting) {
       return;
@@ -114,9 +126,9 @@ export default withRouter(class Sort extends React.Component {
     return (
       <div className='container'>
         <NavBar></NavBar>
-        <DataHolder values={this.state.values} />
-        <Controls start={this.start} reset={this.reset} />
         <SortInfo {...this.state.sort} />
+        <Controls start={this.start} randomize={this.randomize} unsort={this.unsort} />
+        <DataHolder values={this.state.values} />
       </div>
     )
   }

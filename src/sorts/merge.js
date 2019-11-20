@@ -50,8 +50,25 @@ function* TopDownMerge(A, iBegin, iMiddle, iEnd, B, set) {
   }
 }
 
+const name = 'Merge Sort'
+const slug = 'merge-sort'
+
+const complexities = {
+  best: 'n log(n)',
+  average: 'n log(n)',
+  worst: 'n log(n)',
+}
+
+const link = 'https://en.wikipedia.org/wiki/Merge_sort'
+
+const desc = `Merge sort is an efficient, general-purpose, comparison-based sorting algorithm. Most implementations produce a stable sort, which means that the order of equal elements is the same in the input and output. Merge sort is a divide and conquer algorithm which splits up the array into sorted sub-arrays and merges them together.`
+
 
 export default merge_sort;
 export const data = {
-  slug: 'merge-sort'
+  name,
+  slug,
+  link,
+  desc,
+  complexities,
 }

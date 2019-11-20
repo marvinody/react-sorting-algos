@@ -5,6 +5,7 @@ export default function NavBar() {
     <div>
       <div>
         <Link to='/bubble-sort'>Bubble Sort</Link>
+        <Link to='/merge-sort'>Merge Sort</Link>
       </div>
     </div>
   )

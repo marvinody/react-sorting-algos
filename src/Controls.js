@@ -4,7 +4,9 @@ const Controls = (props) => {
   return (
     <div>
       <button onClick={props.start}>Start</button>
-      <button onClick={props.reset}>Reset</button>
+      <button onClick={props.randomize}>Randomize</button>
+      <button onClick={props.unsort}>Unsort</button>
+
     </div>
   )
 }

@@ -1,6 +1,8 @@
 import React from 'react';
+import { withRouter } from 'react-router';
 import Controls from './Controls';
 import DataHolder from './DataHolder';
+import NavBar from './NavBar';
 import SortInfo from './SortInfo';
 import sorts from './sorts';
 const TIMEOUT = 10;
@@ -10,15 +12,11 @@ const newRandArray = len => {
   return arr.map(() => Math.random() * (ARRAY_SIZE * 10) | 0);
 }
 
-export default class Main extends React.Component {
+export default withRouter(class Sort extends React.Component {
   constructor(props) {
-    super();
-    const { slug } = props.match.params
-    this.state = {
-      values: newRandArray(ARRAY_SIZE),
-      isSorting: false,
-      sort: sorts[slug],
-    }
+    super(props);
+    console.log(props)
+    this.state = {}
     this.start = this.start.bind(this);
     this.reset = this.reset.bind(this);
 
@@ -26,6 +24,23 @@ export default class Main extends React.Component {
     this.set = this.set.bind(this);
     this.get = this.get.bind(this);
 
+  }
+  resetToStart(props) {
+    const { slug } = props.match.params
+    this.setState({
+      values: newRandArray(ARRAY_SIZE),
+      isSorting: false,
+      sort: sorts[slug],
+    })
+  }
+  componentDidMount() {
+    this.resetToStart(this.props)
+  }
+  shouldComponentUpdate(nextProps, nextState) {
+    if (this.props.match.params.slug !== nextProps.match.params.slug) {
+      this.resetToStart(nextProps)
+    }
+    return true;
   }
 
   reset() {
@@ -98,13 +113,14 @@ export default class Main extends React.Component {
     }
     return (
       <div className='container'>
+        <NavBar></NavBar>
         <DataHolder values={this.state.values} />
         <Controls start={this.start} reset={this.reset} />
         <SortInfo {...this.state.sort} />
       </div>
     )
   }
-}
+})
 
 function resolveInSomeTime() {
   return new Promise((resolve, reject) => {

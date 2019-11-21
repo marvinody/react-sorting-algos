@@ -39,9 +39,21 @@ function* radix_sort(arr, { set, get }) {
   }
 }
 
+const name = 'Radix Sort'
+const slug = 'radix-sort'
 
-export default radix_sort;
+const complexities = {
+  best: 'k*n',
+  average: 'k*n',
+  worst: 'k*n',
+}
+
+const link = 'https://en.wikipedia.org/wiki/Radix_sort'
+
+const desc = `Radix sort is a non-comparative sorting algorithm. It avoids comparison by creating and distributing elements into buckets according to their radix. For elements with more than one significant digit, this bucketing process is repeated for each digit, while preserving the ordering of the prior step, until all digits have been considered.`
 
 export const data = {
-  slug: 'radix-sort'
+  name, slug, link, desc, complexities
 }
+
+export default radix_sort;

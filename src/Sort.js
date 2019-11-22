@@ -1,3 +1,4 @@
+import _ from 'lodash';
 import React from 'react';
 import { withRouter } from 'react-router';
 import Controls from './Controls';
@@ -7,9 +8,8 @@ import SortInfo from './SortInfo';
 import sorts from './sorts';
 const TIMEOUT = 10;
 const ARRAY_SIZE = 100;
-const newRandArray = len => {
-  const arr = Array.from(new Int8Array(len));
-  return arr.map(() => Math.random() * (ARRAY_SIZE * 10) | 0);
+const newArray = len => {
+  return (new Array(len)).fill(1).map((_, i) => (i + 1) * 10 + Math.random() * 5)
 }
 
 export default withRouter(class Sort extends React.Component {
@@ -26,40 +26,40 @@ export default withRouter(class Sort extends React.Component {
     this.get = this.get.bind(this);
 
   }
-  resetToStart(props) {
+  setSort(props) {
     const { slug } = props.match.params
     this.setState({
-      values: newRandArray(ARRAY_SIZE),
       isSorting: false,
       sort: sorts[slug],
+      values: newArray(ARRAY_SIZE),
     })
   }
   componentDidMount() {
-    this.resetToStart(this.props)
+    this.setSort(this.props)
   }
 
   // not the best way of doing this, but it seems to be ok
   // the conditional prevents extra updates!
   shouldComponentUpdate(nextProps, nextState) {
     if (this.props.match.params.slug !== nextProps.match.params.slug) {
-      this.resetToStart(nextProps)
+      this.setSort(nextProps)
     }
     return true;
   }
 
   randomize() {
-    this.setState({
-      values: newRandArray(ARRAY_SIZE),
+    this.setState(prev => ({
+      values: _.shuffle(prev.values),
       isSorting: false,
-    })
+    }))
   }
 
   unsort() {
-    this.setState({
+    this.setState(prev => ({
       // sort it backwards
-      values: newRandArray(ARRAY_SIZE).sort((a, b) => b - a),
+      values: prev.values.slice().sort((a, b) => b - a),
       isSorting: false,
-    })
+    }))
   }
 
   start() {
@@ -93,6 +93,7 @@ export default withRouter(class Sort extends React.Component {
     })
     return arr;
   }
+
   async sort() {
     const arr = this.state.values;
 

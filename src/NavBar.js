@@ -4,13 +4,10 @@ import sorts from './sorts'
 
 export default function NavBar() {
   return (
-    <div>
-      <div>
-        {Object.values(sorts).map(({ data: sort }) => (
-          <Link to={'/' + sort.slug} key={sort.slug}>{sort.name}</Link>
-        ))}
-
-      </div>
+    <div className='nav-bar'>
+      {Object.values(sorts).map(({ data: sort }) => (
+        <Link to={'/' + sort.slug} key={sort.slug}>{sort.name}</Link>
+      ))}
     </div>
   )
 }

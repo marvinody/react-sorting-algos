@@ -1,5 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
+import './NavBar.css'
 import sorts from './sorts'
 
 export default function NavBar() {

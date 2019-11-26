@@ -8,9 +8,9 @@
 
 
 #root,
-.App,
-.container {
+.App {
   height: 100%;
+  min-height: 100vh;
 }
 
 .App {
@@ -20,4 +20,18 @@
 
 .container {
   width: 70%;
+}
+
+a {
+  text-decoration: none;
+  color: #444;
+}
+
+a:hover {
+  text-decoration: underline;
+
+}
+
+a:visited {
+  color: #444;
 }

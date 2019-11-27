@@ -8,5 +8,4 @@ export default {
   [insertion_data.slug]: { sort: insertion_sort, data: insertion_data },
   [merge_data.slug]: { sort: merge_sort, data: merge_data },
   [radix_data.slug]: { sort: radix_sort, data: radix_data },
-}
-
+};

@@ -35,3 +35,8 @@ a:hover {
 a:visited {
   color: #444;
 }
+
+
+.main-desc {
+  max-width: 640px;
+}
